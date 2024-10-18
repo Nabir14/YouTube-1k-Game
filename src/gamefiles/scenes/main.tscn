@@ -1,0 +1,96 @@
+[gd_scene load_steps=16 format=3 uid="uid://chd6h21ks8s8v"]
+
+[ext_resource type="Texture2D" uid="uid://wf56gkd64yu5" path="res://gamefiles/textures/prototype/texture_09.png" id="1_0asis"]
+[ext_resource type="Environment" uid="uid://bcejeghkfsp0q" path="res://gamefiles/environment/main.tres" id="1_a523y"]
+[ext_resource type="Script" path="res://gamefiles/scripts/world.gd" id="1_hkc03"]
+[ext_resource type="PackedScene" uid="uid://cqyghigmnb500" path="res://gamefiles/scenes/player.tscn" id="3_aoa5m"]
+[ext_resource type="ArrayOccluder3D" uid="uid://cj06hwpmrlch" path="res://gamefiles/optimizations/main.occ" id="4_0n03j"]
+[ext_resource type="PackedScene" uid="uid://cwgtpuif0glqd" path="res://gamefiles/scenes/dom.tscn" id="4_y4bwx"]
+[ext_resource type="PackedScene" uid="uid://dj5ktyyap4gkq" path="res://gamefiles/scenes/joseph.tscn" id="5_8bumd"]
+[ext_resource type="Script" path="res://gamefiles/scripts/cookie_spawner.gd" id="8_buf4u"]
+[ext_resource type="Script" path="res://gamefiles/scripts/collectables.gd" id="9_bdmwd"]
+[ext_resource type="PackedScene" uid="uid://dr1v8urgdp8ie" path="res://gamefiles/scenes/cloud.tscn" id="9_d0fvv"]
+
+[sub_resource type="NavigationMesh" id="NavigationMesh_w2jc6"]
+vertices = PackedVector3Array(-511.5, 0.5, -511.5, -511.5, 0.5, 511.5, 511.5, 0.5, 511.5, 511.5, 0.5, -511.5)
+polygons = [PackedInt32Array(3, 2, 0), PackedInt32Array(0, 2, 1)]
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_ru71p"]
+data = PackedVector3Array(512, 0, 512, -512, 0, 512, 512, 0, -512, -512, 0, 512, -512, 0, -512, 512, 0, -512)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5t0nn"]
+albedo_texture = ExtResource("1_0asis")
+uv1_triplanar = true
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_jvlvg"]
+material = SubResource("StandardMaterial3D_5t0nn")
+size = Vector2(1024, 1024)
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_hyrac"]
+radius = 1.5
+
+[node name="main" type="Node3D" groups=["world"]]
+script = ExtResource("1_hkc03")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = ExtResource("1_a523y")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.707107, -0.5, 0.5, 0, 0.707107, 0.707107, -0.707107, -0.5, 0.5, 0, 0, 0)
+shadow_enabled = true
+
+[node name="NavigationRegion3D" type="NavigationRegion3D" parent="."]
+navigation_mesh = SubResource("NavigationMesh_w2jc6")
+
+[node name="ground" type="StaticBody3D" parent="NavigationRegion3D"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="NavigationRegion3D/ground"]
+shape = SubResource("ConcavePolygonShape3D_ru71p")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="NavigationRegion3D"]
+mesh = SubResource("PlaneMesh_jvlvg")
+skeleton = NodePath("../..")
+
+[node name="player" parent="." instance=ExtResource("3_aoa5m")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 3)
+
+[node name="dom" parent="player" instance=ExtResource("4_y4bwx")]
+transform = Transform3D(-0.703333, 0, 0.710861, 0, 1, 0, -0.710861, 0, -0.703333, -1.12223, 0.41473, -1.09483)
+visible = false
+
+[node name="joseph" parent="." instance=ExtResource("5_8bumd")]
+transform = Transform3D(0.75, 0, 0, 0, 0.75, 0, 0, 0, 0.75, 0, 0, -6)
+
+[node name="cookieSpawner" type="Node3D" parent="."]
+script = ExtResource("8_buf4u")
+scatterAmount = 128
+
+[node name="Timer" type="Timer" parent="cookieSpawner"]
+wait_time = 5.0
+autostart = true
+
+[node name="cloud" parent="." instance=ExtResource("9_d0fvv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.08017, 27.2556)
+
+[node name="collectables" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -3)
+script = ExtResource("9_bdmwd")
+
+[node name="dom" parent="collectables" instance=ExtResource("4_y4bwx")]
+transform = Transform3D(1.75, 0, 0, 0, 1.75, 0, 0, 0, 1.75, 0, 1.5, 0)
+
+[node name="Area3D" type="Area3D" parent="collectables"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="collectables/Area3D"]
+shape = SubResource("SphereShape3D_hyrac")
+
+[node name="OccluderInstance3D" type="OccluderInstance3D" parent="."]
+occluder = ExtResource("4_0n03j")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 2.5
+
+[connection signal="timeout" from="cookieSpawner/Timer" to="cookieSpawner" method="_on_timer_timeout"]
+[connection signal="body_entered" from="collectables/Area3D" to="collectables" method="_on_area_3d_body_entered"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

@@ -1,0 +1,55 @@
+[gd_scene load_steps=4 format=3 uid="uid://cqyghigmnb500"]
+
+[ext_resource type="Script" path="res://gamefiles/scripts/fps_player.gd" id="1_1oe6e"]
+[ext_resource type="PackedScene" uid="uid://dmr0fcamx7t56" path="res://addons/virtual_joystick/virtual_joystick_scene.tscn" id="2_c5opg"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_6lart"]
+
+[node name="player" type="CharacterBody3D" groups=["player"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+script = ExtResource("1_1oe6e")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_6lart")
+
+[node name="head" type="Node3D" parent="."]
+
+[node name="Camera3D" type="Camera3D" parent="head"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+far = 64.0
+
+[node name="RayCast3D" type="RayCast3D" parent="head"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 1, 0)
+target_position = Vector3(0, -2, 0)
+collide_with_areas = true
+collide_with_bodies = false
+
+[node name="playerEar" type="AudioListener3D" parent="head"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+
+[node name="ColorRect" type="ColorRect" parent="head"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.125, 0.125)
+
+[node name="walkSound" type="AudioStreamPlayer3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
+
+[node name="ambienceSound" type="AudioStreamPlayer3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+autoplay = true
+
+[node name="Virtual Joystick" parent="." instance=ExtResource("2_c5opg")]
+action_left = "moveLeft"
+action_right = "moveRight"
+action_up = "moveUp"
+action_down = "moveDown"
