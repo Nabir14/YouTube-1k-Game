@@ -66,11 +66,11 @@ script = ExtResource("8_buf4u")
 scatterAmount = 128
 
 [node name="Timer" type="Timer" parent="cookieSpawner"]
-wait_time = 10.0
+wait_time = 30.0
 autostart = true
 
 [node name="cloud" parent="." instance=ExtResource("9_d0fvv")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.08017, 27.2556)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 128)
 
 [node name="collectables" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -3)

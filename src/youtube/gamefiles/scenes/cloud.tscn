@@ -64,5 +64,6 @@ shape = SubResource("SphereShape3D_yjx8g")
 shape = SubResource("SphereShape3D_3mh54")
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+path_max_distance = 5.01
 
 [connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]
