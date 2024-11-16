@@ -1,0 +1,76 @@
+[gd_scene load_steps=7 format=3 uid="uid://cnab134xco6xa"]
+
+[ext_resource type="Script" path="res://gamefiles/scripts/game_over.gd" id="1_3x32i"]
+[ext_resource type="Environment" uid="uid://bcejeghkfsp0q" path="res://gamefiles/environment/main.tres" id="2_osovo"]
+[ext_resource type="Texture2D" uid="uid://wf56gkd64yu5" path="res://gamefiles/textures/prototype/texture_09.png" id="3_kovry"]
+[ext_resource type="ArrayOccluder3D" uid="uid://cj06hwpmrlch" path="res://gamefiles/optimizations/main.occ" id="10_uw0no"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5t0nn"]
+albedo_texture = ExtResource("3_kovry")
+uv1_triplanar = true
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_jvlvg"]
+material = SubResource("StandardMaterial3D_5t0nn")
+size = Vector2(1024, 1024)
+
+[node name="gameOver" type="Node3D" groups=["world"]]
+script = ExtResource("1_3x32i")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = ExtResource("2_osovo")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.707107, -0.5, 0.5, 0, 0.707107, 0.707107, -0.707107, -0.5, 0.5, 0, 0, 0)
+shadow_enabled = true
+
+[node name="OccluderInstance3D" type="OccluderInstance3D" parent="."]
+occluder = ExtResource("10_uw0no")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 2.98023e-08, 2.98023e-08, 1, 2.98023e-08, 2.98023e-08, 0, 1, 0, 0, 0)
+mesh = SubResource("PlaneMesh_jvlvg")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(0.866025, 0, -0.5, 0, 1, 0, 0.5, 0, 0.866025, -5, 2, 2)
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Button" type="Button" parent="Control"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -45.0
+offset_top = 64.0
+offset_right = 45.0
+offset_bottom = 117.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 32
+text = "Retry"
+
+[node name="Label" type="Label" parent="Control"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -173.5
+offset_top = -64.0
+offset_right = 173.5
+offset_bottom = 24.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 64
+text = "Game Over"
+
+[connection signal="pressed" from="Control/Button" to="." method="_on_button_pressed"]

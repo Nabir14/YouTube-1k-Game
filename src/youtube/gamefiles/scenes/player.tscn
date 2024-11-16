@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://cqyghigmnb500"]
+[gd_scene load_steps=5 format=3 uid="uid://cqyghigmnb500"]
 
 [ext_resource type="Script" path="res://gamefiles/scripts/fps_player.gd" id="1_1oe6e"]
-[ext_resource type="PackedScene" uid="uid://dmr0fcamx7t56" path="res://addons/virtual_joystick/virtual_joystick_scene.tscn" id="2_c5opg"]
+[ext_resource type="PackedScene" uid="uid://e7pgxngr42ln" path="res://gamefiles/scenes/virtual_joystick_scene.tscn" id="2_3jt4u"]
+[ext_resource type="Script" path="res://gamefiles/scripts/virtual_joystick.gd" id="3_4tko3"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_6lart"]
 
@@ -48,7 +49,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 autoplay = true
 
-[node name="Virtual Joystick" parent="." instance=ExtResource("2_c5opg")]
+[node name="Virtual Joystick" parent="." instance=ExtResource("2_3jt4u")]
+script = ExtResource("3_4tko3")
 action_left = "moveLeft"
 action_right = "moveRight"
 action_up = "moveUp"

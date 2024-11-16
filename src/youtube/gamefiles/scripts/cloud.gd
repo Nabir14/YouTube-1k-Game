@@ -18,4 +18,7 @@ func lookAt(player):
 
 func _on_area_3d_body_entered(body: Node3D) -> void:
 	if body.is_in_group("player"):
-		get_tree().quit()
+		get_tree().change_scene_to_file("res://gamefiles/scenes/gameOver.tscn")
+
+func despawn() -> void:
+	self.queue_free()

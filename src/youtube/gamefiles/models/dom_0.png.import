@@ -3,9 +3,10 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://c4uwhk5awfnrt"
+path.s3tc="res://.godot/imported/dom_0.png-205c0320a8024a52e1c53a3d541720a8.s3tc.ctex"
 path.etc2="res://.godot/imported/dom_0.png-205c0320a8024a52e1c53a3d541720a8.etc2.ctex"
 metadata={
-"imported_formats": ["etc2_astc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 generator_parameters={
@@ -15,7 +16,7 @@ generator_parameters={
 [deps]
 
 source_file="res://gamefiles/models/dom_0.png"
-dest_files=["res://.godot/imported/dom_0.png-205c0320a8024a52e1c53a3d541720a8.etc2.ctex"]
+dest_files=["res://.godot/imported/dom_0.png-205c0320a8024a52e1c53a3d541720a8.s3tc.ctex", "res://.godot/imported/dom_0.png-205c0320a8024a52e1c53a3d541720a8.etc2.ctex"]
 
 [params]
 

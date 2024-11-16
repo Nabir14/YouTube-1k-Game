@@ -3,9 +3,10 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cp27h61hsmjrk"
+path.s3tc="res://.godot/imported/headphones_1.png-1ccc92b0e8b6e935bbea6adf1fbcb73b.s3tc.ctex"
 path.etc2="res://.godot/imported/headphones_1.png-1ccc92b0e8b6e935bbea6adf1fbcb73b.etc2.ctex"
 metadata={
-"imported_formats": ["etc2_astc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 generator_parameters={
@@ -15,7 +16,7 @@ generator_parameters={
 [deps]
 
 source_file="res://gamefiles/models/joseph/headphones_1.png"
-dest_files=["res://.godot/imported/headphones_1.png-1ccc92b0e8b6e935bbea6adf1fbcb73b.etc2.ctex"]
+dest_files=["res://.godot/imported/headphones_1.png-1ccc92b0e8b6e935bbea6adf1fbcb73b.s3tc.ctex", "res://.godot/imported/headphones_1.png-1ccc92b0e8b6e935bbea6adf1fbcb73b.etc2.ctex"]
 
 [params]
 
